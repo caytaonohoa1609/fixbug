@@ -8,12 +8,40 @@ import { FormattedMessage } from 'react-intl';
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            username: '',
+            password: '',
+            isShowPassword: false,
+        }
     }
 
-   
+    handleOnchangeUsername = (event) => {
+        this.setState({
+            username: event.target.value,
+        })
+    }
+
+    handleOnchangePassword = (event) => {
+        this.setState({
+            password: event.target.value
+        })
+    }
+
+    handleLogin = () => {
+        console.log('username: ', this.state.username, ' password: ', this.state.password)
+        console.log('all state: ', this.state)
+    }
+
+    handleShowHidePassword = () => {
+        this.setState({
+            isShowPassword: !this.state.isShowPassword
+        })
+    }
 
     render() {
         //JSX
+
+
         return (
             <div className='login-background'>
                 <div className='login-container'>
@@ -21,14 +49,32 @@ class Login extends Component {
                         <div className='col-12 text-login'>Login</div>
                         <div className='col-12 form-group login-input'>
                             <label>Username:</label>    
-                            <input type='text' className='form-control' placeholder='Enter your username'/>
+                            <input type='text' 
+                                className='form-control' 
+                                placeholder='Enter your username'
+                                value={this.state.username}
+                                onChange={(event) => this.handleOnchangeUsername(event) }
+                            />
                         </div> 
                         <div className='col-12 form-group login-input'>
-                            <label>Password:</label>    
-                            <input type='password' className='form-control' placeholder='Enter your password'/>
+                            <label>Password:</label>
+                                <div className='custum-input-password'>
+                                    <input 
+                                    className='form-control'
+                                    type={this.state.isShowPassword ? 'text' : 'password'}
+                                    placeholder='Enter your password'
+                                    value={this.state.password}
+                                    onChange={(event) => this.handleOnchangePassword(event)}
+                                />
+                                    <span
+                                        onClick={() => { this.handleShowHidePassword() }}
+                                    >
+                                        <i class={ this.state.isShowPassword ? "fa-regular fa-eye" : "fa-regular fa-eye-slash" }></i>
+                                    </span>
+                                </div>    
                         </div>
                         <div className='col-12'>
-                            <button className='btn-login'>Login</button>
+                            <button className='btn-login'onClick={() => { this.handleLogin() }}>Login</button>
                         </div> 
                         <div className='col-12'>
                             <span className='forgot-password'>Forgot your password?</span>
@@ -37,7 +83,7 @@ class Login extends Component {
                             <span className='text-other-login'>Or Login with:</span>
                         </div>
                         <div className='col-12 social-login'>
-                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                            
                             <i class="fa-brands fa-google-plus-g google"></i>
                             <i class="fa-brands fa-facebook-f facebook"></i>
                         </div>
